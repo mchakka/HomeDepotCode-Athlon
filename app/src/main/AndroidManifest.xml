@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddEventsActivityNew"
+            android:name=".MainNavigationActivity"
             android:label="@string/title_activity_add_events_new"></activity>
     </application>
 

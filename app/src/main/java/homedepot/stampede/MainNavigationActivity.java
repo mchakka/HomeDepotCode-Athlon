@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class AddEventsActivityNew extends AppCompatActivity {
+public class MainNavigationActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
 
@@ -34,7 +34,7 @@ public class AddEventsActivityNew extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_events_new);
+        setContentView(R.layout.activity_main_navigation);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
