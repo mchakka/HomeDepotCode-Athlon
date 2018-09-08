@@ -21,6 +21,33 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter your event Name"
-        android:textSize="20dp"
+        android:textSize="15dp"
+        android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enter your event's location"
+        android:textSize="15dp"
+        android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enter your event's time"
+        android:textSize="15dp"
+        android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Add a brief description of your event"
+        android:textSize="15dp"
         android:layout_gravity="center"/>
 </android.support.constraint.ConstraintLayout>
