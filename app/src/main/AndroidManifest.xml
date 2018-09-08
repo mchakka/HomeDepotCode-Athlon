@@ -23,6 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddEventsActivityNew"
+            android:label="@string/title_activity_add_events_new"></activity>
     </application>
 
 </manifest>
