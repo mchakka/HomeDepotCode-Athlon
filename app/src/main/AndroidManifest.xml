@@ -25,7 +25,11 @@
         </activity>
         <activity
             android:name=".MainNavigationActivity"
-            android:label="@string/title_activity_add_events_new"></activity>
+            android:label="@string/title_activity_add_events_new" />
+        <activity
+            android:name=".AddingEventActivity"
+            android:label="@string/title_activity_adding_event"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

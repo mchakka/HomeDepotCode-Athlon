@@ -18,4 +18,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_add_events_new">AddEventsActivityNew</string>
+    <string name="title_activity_adding_event">AddingEventActivity</string>
 </resources>
