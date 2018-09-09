@@ -78,6 +78,18 @@
         android:hint="Time of the Event?"
         android:inputType="time" />
 
+    <EditText
+        android:id="@+id/editText7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText6"
+        android:layout_alignStart="@+id/editText6"
+        android:layout_below="@+id/editText4"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="Brief Description"
+        android:inputType="text" />
+
     <Button
         android:id="@+id/button"
         style="@android:style/Widget.Button"
@@ -85,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/editText7"
         android:layout_marginTop="62dp"
         android:text="Submit"
         android:textSize="16sp"
