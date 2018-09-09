@@ -43,17 +43,10 @@ public class AddingEventActivityNew extends AppCompatActivity {
                 EditText edit = (EditText)findViewById(R.id.editText1);
                 final String result1 = edit.getText().toString();
 
-                EditText edit2 = (EditText)findViewById(R.id.editText2);
-                final String result2 = edit2.getText().toString();
 
                 EditText edit3 = (EditText)findViewById(R.id.editText3);
                 final String result3 = edit3.getText().toString();
 
-                EditText edit4 = (EditText)findViewById(R.id.editText4);
-                final String result4 = edit4.getText().toString();
-
-                EditText edit6 = (EditText)findViewById(R.id.editText6);
-                final String result6 = edit6.getText().toString();
 
                 EditText edit7 = (EditText)findViewById(R.id.editText7);
                 final String result7 = edit7.getText().toString();
@@ -71,7 +64,7 @@ public class AddingEventActivityNew extends AppCompatActivity {
                             return false;
                         }
 
-                        String mUrl = String.format("http://stampede-codeathlon.herokuapp.com/addEvent/?name='"+result1+"'&location='33.771866, -84.366280'&organization='"+result3+"'&day='"+result4+"'&time='"+result6+"'&description='"+result7+"'");
+                        String mUrl = String.format("http://stampede-codeathlon.herokuapp.com/addEvent/?name='"+result1+"'&location='33.771866, -84.366280'&organization='"+result3+"'&description='"+result7+"'");
 
                         int mKey = sendHttpRequest(mUrl);
 
