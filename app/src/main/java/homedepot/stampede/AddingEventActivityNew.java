@@ -1,5 +1,7 @@
 package homedepot.stampede;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View.OnClickListener;
@@ -29,7 +31,10 @@ public class AddingEventActivityNew extends AppCompatActivity {
 
 
 
-
+    private Activity getActivity() {
+        return this;
+    }
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,16 @@ public class AddingEventActivityNew extends AppCompatActivity {
 
                         // TODO: register the new account here.
                         return true;
+                    }
+
+                    protected void onPostExecute(final Boolean success) {
+                        SignUpActivity.UserLoginTask mAuthTask = null;
+                       // showProgress(false);
+                        if (success) {
+                            Intent intent = new Intent(getActivity(), MainNavigationActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
                 }
 
