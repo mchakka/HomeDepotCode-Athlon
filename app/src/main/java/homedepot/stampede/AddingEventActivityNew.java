@@ -71,7 +71,7 @@ public class AddingEventActivityNew extends AppCompatActivity {
                             return false;
                         }
 
-                        String mUrl = String.format("http://stampede-codeathlon.herokuapp.com/addEvent/?name='"+result1+"'&location='"+result2+"'&organization='"+result3+"'&day='"+result4+"'&time='"+result6+"'&description='"+result7+"'");
+                        String mUrl = String.format("http://stampede-codeathlon.herokuapp.com/addEvent/?name='"+result1+"'&location='33.771866, -84.366280'&organization='"+result3+"'&day='"+result4+"'&time='"+result6+"'&description='"+result7+"'");
 
                         int mKey = sendHttpRequest(mUrl);
 
