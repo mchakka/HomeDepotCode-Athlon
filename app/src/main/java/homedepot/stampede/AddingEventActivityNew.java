@@ -1,5 +1,6 @@
 package homedepot.stampede;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View.OnClickListener;
 import android.os.Bundle;
@@ -40,26 +41,46 @@ public class AddingEventActivityNew extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText edit = (EditText)findViewById(R.id.editText1);
-                String result1 = edit.getText().toString();
+                final String result1 = edit.getText().toString();
 
                 EditText edit2 = (EditText)findViewById(R.id.editText2);
-                String result2 = edit2.getText().toString();
+                final String result2 = edit2.getText().toString();
 
                 EditText edit3 = (EditText)findViewById(R.id.editText3);
-                String result3 = edit3.getText().toString();
+                final String result3 = edit3.getText().toString();
 
                 EditText edit4 = (EditText)findViewById(R.id.editText4);
-                String result4 = edit4.getText().toString();
+                final String result4 = edit4.getText().toString();
 
                 EditText edit6 = (EditText)findViewById(R.id.editText6);
-                String result6 = edit6.getText().toString();
+                final String result6 = edit6.getText().toString();
 
                 EditText edit7 = (EditText)findViewById(R.id.editText7);
-                String result7 = edit7.getText().toString();
+                final String result7 = edit7.getText().toString();
 
 
-                String mUrl = String.format("http://stampede-codeathlon.herokuapp.com/addEvent/?name='"+result1+"'&location='"+result2+"'&organization='"+result3+"'&day='"+result4+"'&time='"+result6+"'&description='"+result7+"'");
-                int l = sendHttpRequest(mUrl);
+
+                class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+                    protected Boolean doInBackground(Void... params) {
+                        // TODO: attempt authentication against a network service.
+
+                        try {
+                            // Simulate network access.
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            return false;
+                        }
+
+                        String mUrl = String.format("http://stampede-codeathlon.herokuapp.com/addEvent/?name='"+result1+"'&location='"+result2+"'&organization='"+result3+"'&day='"+result4+"'&time='"+result6+"'&description='"+result7+"'");
+
+                        int mKey = sendHttpRequest(mUrl);
+
+                        // TODO: register the new account here.
+                        return true;
+                    }
+                }
+
+                System.out.print("COOOOOO");
             }
         });
     }
