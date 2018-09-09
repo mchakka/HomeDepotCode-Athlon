@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -21,19 +23,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -325,8 +321,11 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
                 }
             }
 
-            mKey = sendHttpRequest(mUrl, mEmail);
-
+            SharedPreferences sharedPreferences = getSharedPreferences("homedepot.stampede", Context.MODE_PRIVATE);
+            if (sharedPreferences.getInt("userId", 0) == 0) {
+                mKey = sendHttpRequest(mUrl, mEmail);
+                sharedPreferences.edit().putInt("userId", mKey).apply();
+            }
             // TODO: register the new account here.
             return true;
         }

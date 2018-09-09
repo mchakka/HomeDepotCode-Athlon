@@ -1,5 +1,7 @@
 package homedepot.stampede;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -21,10 +23,12 @@ public class MainNavigationActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    mTextMessage.setText(R.string.title_activity_add_events_new);
+                    startActivity(new Intent(getActivty(), AddingEventActivityNew.class));
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    mTextMessage.setText(R.string.title_activity_maps);
+                    startActivity(new Intent(getActivty(), MapsActivity.class));
                     return true;
             }
             return false;
@@ -41,4 +45,7 @@ public class MainNavigationActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    private Activity getActivty() {
+        return this;
+    }
 }
