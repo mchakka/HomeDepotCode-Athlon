@@ -335,7 +335,7 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
             mAuthTask = null;
             showProgress(false);
             if (success) {
-                Intent intent = new Intent(getActivity(), AddingEventActivityNew.class);
+                Intent intent = new Intent(getActivity(), MainNavigationActivity.class);
                 startActivity(intent);
                 finish();
             }
