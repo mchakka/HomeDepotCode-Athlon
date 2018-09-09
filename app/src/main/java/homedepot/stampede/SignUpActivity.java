@@ -30,6 +30,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -72,8 +73,7 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
 
     // UI references.
     private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private ListView mUniversityView;
+    private Spinner mUniversityView;
     private View mProgressView;
     private View mLoginFormView;
 
@@ -85,19 +85,12 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
+        mUniversityView = (Spinner) findViewById(R.id.university);
+        String[] items = {"Ponce City Market University", "Dummy University"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, items);
+        mUniversityView.setAdapter(adapter);
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_up_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -165,21 +158,13 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
 
         // Reset errors.
         mEmailView.setError(null);
-        mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String university = mUniversityView.getSelectedItem().toString();
 
         boolean cancel = false;
         View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
@@ -200,7 +185,7 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(email, university);
             mAuthTask.execute((Void) null);
         }
     }
@@ -209,12 +194,6 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
         //TODO: Replace this with your own logic
         return email.contains("@");
     }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
-
     /**
      * Shows the progress UI and hides the login form.
      */
@@ -316,15 +295,15 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
-        private final String mPassword;
+        private final String mUniversity;
         private int mKey;
         private final String mUrl;
         private final String USER_AGENT = "Chrome/68.0.3440.106";
 
-        UserLoginTask(String email, String password) {
+        UserLoginTask(String email, String university) {
             mEmail = email;
-            mPassword = password;
-            mUrl = String.format("http://stampede-codeathlon.herokuapp.com/addUser?email='%s'&school='%s'", email, password);
+            mUniversity = university;
+            mUrl = String.format("http://stampede-codeathlon.herokuapp.com/addUser?email='%s'&school='%s'", email, university);
         }
 
         @Override
@@ -342,7 +321,7 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                    return pieces[1].equals(mUniversity);
                 }
             }
 
@@ -360,9 +339,6 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
                 Intent intent = new Intent(getActivity(), MainNavigationActivity.class);
                 startActivity(intent);
                 finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
             }
         }
 
@@ -375,7 +351,7 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
         private int sendHttpRequest(String url, String email) {
             int returnVal = 0;
             try {
-                System.out.println("URL [" + url + "] - email [" + email + "]");
+                System.out.println("URL [" + url + "] - email [" + email + "] - university [" + mUniversity + "]" );
 
                 HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
                 con.setRequestProperty("User-Agent", USER_AGENT);
