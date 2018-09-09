@@ -32,6 +32,17 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -306,10 +317,14 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
 
         private final String mEmail;
         private final String mPassword;
+        private int mKey;
+        private final String mUrl;
+        private final String USER_AGENT = "Chrome/68.0.3440.106";
 
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
+            mUrl = String.format("http://stampede-codeathlon.herokuapp.com/addUser?email='%s'&school='%s'", email, password);
         }
 
         @Override
@@ -330,6 +345,8 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
                     return pieces[1].equals(mPassword);
                 }
             }
+
+            mKey = sendHttpRequest(mUrl, mEmail);
 
             // TODO: register the new account here.
             return true;
@@ -353,6 +370,40 @@ public class SignUpActivity extends AppCompatActivity implements LoaderCallbacks
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+
+        private int sendHttpRequest(String url, String email) {
+            int returnVal = 0;
+            try {
+                System.out.println("URL [" + url + "] - email [" + email + "]");
+
+                HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
+                con.setRequestProperty("User-Agent", USER_AGENT);
+                con.setRequestMethod("GET");
+                con.connect();
+
+                InputStream is = new URL(url).openStream();
+                try {
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+                    String jsonText = readAll(rd);
+                    JSONObject object = new JSONObject(jsonText);
+                    returnVal = (Integer) object.get("ID");
+                } finally {
+                    is.close();
+                }
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
+            return returnVal;
+        }
+
+        private String readAll(Reader rd) throws IOException {
+            StringBuilder sb = new StringBuilder();
+            int cp;
+            while ((cp = rd.read()) != -1) {
+                sb.append((char) cp);
+            }
+            return sb.toString();
         }
     }
 }
